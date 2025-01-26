@@ -140,3 +140,74 @@ def test_iteration(stack):
     stack.push(0, 1, 2, 3, 4)
     for item, i in zip(stack, reversed(range(5))):
         assert item == i
+
+
+def test_peek_on_empty_stack(stack):
+    with pytest.raises(IndexError):
+        stack.peek()
+
+
+def test_single_element_stack():
+    stack = Stack(1)
+    assert stack.peek() == 1
+    assert stack.size == 1
+    stack.pop()
+    assert stack.empty()
+
+
+def test_max_size(stack):
+    max_size_stack = Stack(1, 2, 3, max_size=3)
+    assert max_size_stack.size == 3
+
+    with pytest.raises(IndexError, match="Stack has reached it's max size"):
+        max_size_stack.push(4)
+
+
+def test_pop_and_push_with_max_size():
+    max_size_stack = Stack(1, 2, 3, max_size=3)
+    max_size_stack.pop()
+    max_size_stack.push(4)
+    assert max_size_stack.size == 3
+    assert max_size_stack.peek() == 4
+
+
+def test_large_number_of_elements_with_max_size():
+    max_size_stack = Stack(max_size=1000)
+
+    for i in range(1000):
+        max_size_stack.push(i)
+
+    assert max_size_stack.size == 1000
+
+    with pytest.raises(IndexError):
+        max_size_stack.push(1001)
+
+
+def test_iteration_empty_stack(stack):
+    for item in stack:
+        assert False, "Iteration should not yield any items"
+
+
+def test_threaded_push_pop():
+    import threading
+    stack = Stack(max_size=10)
+
+    def push_elements():
+        for i in range(5):
+            stack.push(i)
+
+    def pop_elements():
+        for i in range(5):
+            stack.pop()
+
+    thread1 = threading.Thread(target=push_elements)
+    thread2 = threading.Thread(target=pop_elements)
+
+    thread1.start()
+    thread2.start()
+
+    thread1.join()
+    thread2.join()
+
+    # The final stack size should be 0
+    assert stack.size == 0

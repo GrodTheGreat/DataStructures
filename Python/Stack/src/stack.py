@@ -2,12 +2,12 @@ from threading import Lock
 
 class Stack:
     # Interfaces
-    def __init__(self, *args):
+    def __init__(self, *args, max_size: int = None):
         self.__data: list[any] = []
         self.__size: int = 0
         self.__index: int = -1
         self.__lock: Lock = Lock()
-        #TODO Add max size?
+        self.max_size = max_size
         #TODO **kwargs?
 
         for arg in args:
@@ -77,6 +77,9 @@ class Stack:
     def push(self, *args):
         with self.__lock:
             for arg in args:
+                if self.max_size and self.__size >= self.max_size:
+                    raise IndexError('Stack has reached it\'s max size')
+
                 self.__data.append(arg)
                 self.__size += 1
                 self.__index += 1

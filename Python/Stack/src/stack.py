@@ -7,8 +7,7 @@ class Stack:
         self.__size: int = 0
         self.__index: int = -1
         self.__lock: Lock = Lock()
-        self.max_size = max_size
-        #TODO **kwargs?
+        self.max_size: int = max_size
 
         for arg in args:
             self.push(arg)
@@ -18,7 +17,7 @@ class Stack:
 
     def __str__(self):
         if self.empty():
-            return "Stack is empty"
+            return 'Stack is empty'
         return f"Stack(top -> {', '.join(map(str, reversed(self.__data)))} -> bottom)"
 
     def __eq__(self, other):
@@ -78,7 +77,7 @@ class Stack:
         with self.__lock:
             for arg in args:
                 if self.max_size and self.__size >= self.max_size:
-                    raise IndexError('Stack has reached it\'s max size')
+                    raise IndexError("Stack has reached it's max size")
 
                 self.__data.append(arg)
                 self.__size += 1

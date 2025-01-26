@@ -1,16 +1,15 @@
 class Stack:
     # Interfaces
-    def __init__(self, data = None):
+    def __init__(self, *args):
         self.__data = []
-        self.__size = 0
-        self.__index = -1
+        self.__size: int = 0
+        self.__index: int = -1
         #TODO Add threading?
         #TODO Add max size?
-        #TODO *args
         #TODO **kwargs?
 
-        if data:
-            self.push(data)
+        for arg in args:
+            self.push(arg)
 
     def __str__(self):
         raise NotImplementedError
@@ -28,7 +27,7 @@ class Stack:
         raise NotImplementedError
 
     def __len__(self):
-        raise NotImplementedError
+        return self.__size
 
     def __bool__(self):
         raise NotImplementedError

@@ -53,7 +53,7 @@ class TestStack(unittest.TestCase):
         self.assertEqual(self.stack.size, 0)
 
     def test_initialize_with_data(self):
-        stack = Stack(data=10)
+        stack = Stack(10)
         self.assertEqual(stack.peek(), 10)
         self.assertEqual(stack.size, 1)
 

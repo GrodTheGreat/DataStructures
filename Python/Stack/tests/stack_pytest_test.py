@@ -84,6 +84,35 @@ def test_push_multiple(stack):
 
 
 def test_initialize_with_data():
-    stack = Stack(data=10)
+    stack = Stack(10)
     assert stack.peek() == 10
     assert stack.size == 1
+
+
+def test_arg_parameters():
+    stack = Stack(1, 2, 3, 4, 5)
+    assert stack.peek() == 5
+    assert stack.size == 5
+    for i in reversed(range(5)):
+        assert stack.pop() == i + 1
+    assert stack.empty()
+
+
+# def test_arg_parameters():
+#     stack = Stack([i for i in range(5)])
+#     assert stack.peek() == 4
+#     assert stack.size == 4
+#     for i in reversed(range(5)):
+#         assert stack.pop() == i
+#     assert stack.empty()
+
+def test_length(stack):
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+    assert len(stack) == 3
+    stack.pop()
+    stack.pop()
+    assert len(stack) == 1
+    stack.pop()
+    assert len(stack) == 0

@@ -156,7 +156,7 @@ class TestStack(unittest.TestCase):
             max_size_stack.push(1001)
 
     def test_iteration_empty_stack(self):
-        for item in self.stack:
+        for _ in self.stack:
             self.fail("Iteration should not yield any items")
 
     def test_threaded_push_pop(self):

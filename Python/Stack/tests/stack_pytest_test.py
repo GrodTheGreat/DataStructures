@@ -184,7 +184,7 @@ def test_large_number_of_elements_with_max_size():
 
 
 def test_iteration_empty_stack(stack):
-    for item in stack:
+    for _ in stack:
         assert False, "Iteration should not yield any items"
 
 

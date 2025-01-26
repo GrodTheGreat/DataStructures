@@ -1,10 +1,12 @@
+from threading import Lock
+
 class Stack:
     # Interfaces
     def __init__(self, *args):
-        self.__data = []
+        self.__data: list[any] = []
         self.__size: int = 0
         self.__index: int = -1
-        #TODO Add threading?
+        self.__lock: Lock = Lock()
         #TODO Add max size?
         #TODO **kwargs?
 
@@ -12,11 +14,9 @@ class Stack:
             self.push(arg)
 
     def __repr__(self):
-        # Developer-friendly output with internal state
         return f"Stack({', '.join(map(str, self.__data))}, size={self.__size}, index={self.__index})"
 
     def __str__(self):
-        # User-friendly output of the stack from top to bottom
         if self.empty():
             return "Stack is empty"
         return f"Stack(top -> {', '.join(map(str, reversed(self.__data)))} -> bottom)"
@@ -56,31 +56,32 @@ class Stack:
         return not bool(self.__size)
 
     def peek(self):
-        if self.__size == 0:
-            raise IndexError('Stack is empty')
+        with self.__lock:
+            if self.__size == 0:
+                raise IndexError('Stack is empty')
 
-        return self.__data[self.__index]
+            return self.__data[self.__index]
 
     def pop(self):
-        #TODO Add threading?
-        if self.__size == 0:
-            raise IndexError('Stack is empty')
+        with self.__lock:
+            if self.__size == 0:
+                raise IndexError('Stack is empty')
 
-        value = self.__data[self.__index]
-        del self.__data[self.__index]
-        self.__index -= 1
-        self.__size -= 1
+            value = self.__data[self.__index]
+            del self.__data[self.__index]
+            self.__index -= 1
+            self.__size -= 1
 
-        return value
+            return value
 
     def push(self, *args):
-        #TODO Add threading?
-        for arg in args:
-            self.__data.append(arg)
-            self.__size += 1
-            self.__index += 1
+        with self.__lock:
+            for arg in args:
+                self.__data.append(arg)
+                self.__size += 1
+                self.__index += 1
 
-        return self
+            return self
 
     # Class Methods (None so far...)
 

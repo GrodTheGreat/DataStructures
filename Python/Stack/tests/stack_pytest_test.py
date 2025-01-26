@@ -98,13 +98,15 @@ def test_arg_parameters():
     assert stack.empty()
 
 
-# def test_arg_parameters():
-#     stack = Stack([i for i in range(5)])
-#     assert stack.peek() == 4
-#     assert stack.size == 4
-#     for i in reversed(range(5)):
-#         assert stack.pop() == i
-#     assert stack.empty()
+def test_arg_push():
+    stack = Stack()
+    stack.push(1, 2, 3, 4, 5)
+    assert stack.peek() == 5
+    assert stack.size == 5
+    for i in reversed(range(5)):
+        assert stack.pop() == i + 1
+    assert stack.empty()
+
 
 def test_length(stack):
     stack.push(1)

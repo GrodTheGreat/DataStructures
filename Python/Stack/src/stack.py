@@ -59,11 +59,12 @@ class Stack:
 
         return value
 
-    def push(self, value):
+    def push(self, *args):
         #TODO Add threading?
-        self.__data.append(value)
-        self.__size += 1
-        self.__index += 1
+        for arg in args:
+            self.__data.append(arg)
+            self.__size += 1
+            self.__index += 1
 
         return self
 

@@ -30,7 +30,7 @@ class Stack:
         return self.__size
 
     def __bool__(self):
-        raise NotImplementedError
+        return not self.empty()
 
     # Properties
     @property

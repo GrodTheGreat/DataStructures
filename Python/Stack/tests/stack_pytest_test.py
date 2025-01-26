@@ -116,3 +116,11 @@ def test_length(stack):
     assert len(stack) == 1
     stack.pop()
     assert len(stack) == 0
+
+
+def test_bool(stack):
+    assert not bool(stack)
+    stack.push(1)
+    assert bool(stack)
+    stack.pop()
+    assert not bool(stack)

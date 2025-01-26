@@ -11,20 +11,34 @@ class Stack:
         for arg in args:
             self.push(arg)
 
-    def __str__(self):
-        raise NotImplementedError
-
     def __repr__(self):
-        raise NotImplementedError
+        # Developer-friendly output with internal state
+        return f"Stack({', '.join(map(str, self.__data))}, size={self.__size}, index={self.__index})"
+
+    def __str__(self):
+        # User-friendly output of the stack from top to bottom
+        if self.empty():
+            return "Stack is empty"
+        return f"Stack(top -> {', '.join(map(str, reversed(self.__data)))} -> bottom)"
 
     def __eq__(self, other):
-        raise NotImplementedError
+        if type(other) is not Stack:
+            return False
+
+        return self.__data == other.__data
 
     def __iter__(self):
-        raise NotImplementedError
+        self.__iter_index = self.__index
+        return self
 
     def __next__(self):
-        raise NotImplementedError
+        if self.__iter_index == -1:
+            raise StopIteration
+
+        value = self.__data[self.__iter_index]
+        self.__iter_index -= 1
+
+        return value
 
     def __len__(self):
         return self.__size

@@ -126,3 +126,17 @@ def test_bool(stack):
     assert bool(stack)
     stack.pop()
     assert not bool(stack)
+
+
+def test_equality(stack):
+    integer = 5
+    stack.push(5)
+    assert stack != integer
+    other = Stack(5)
+    assert stack == other
+
+
+def test_iteration(stack):
+    stack.push(0, 1, 2, 3, 4)
+    for item, i in zip(stack, reversed(range(5))):
+        assert item == i

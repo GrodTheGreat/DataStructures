@@ -16,8 +16,8 @@ struct DoubleNode {
 template <typename T>
 class SinglyLinkedList {
    private:
-    SingleNode<T>* head_ = nullptr;
-    SingleNode<T>* tail_ = nullptr;
+    SingleNode<T>* tail_;
+    SingleNode<T>* head_;
 
    public:
     SinglyLinkedList(T value) {

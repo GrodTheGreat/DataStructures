@@ -3,21 +3,21 @@
 template <typename T>
 struct SingleNode {
     T value;
-    SingleNode* next;
+    SingleNode* next = nullptr;
 };
 
 template <typename T>
 struct DoubleNode {
     T value;
-    DoubleNode* next;
-    DoubleNode* prev;
+    DoubleNode* next = nullptr;
+    DoubleNode* prev = nullptr;
 };
 
 template <typename T>
 class SinglyLinkedList {
    private:
-    SingleNode<T>* tail_;
-    SingleNode<T>* head_;
+    SingleNode<T>* head_ = nullptr;
+    SingleNode<T>* tail_ = nullptr;
 
    public:
     SinglyLinkedList(T value) {

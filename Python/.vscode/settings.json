@@ -1,0 +1,5 @@
+{
+  "python.testing.pytestArgs": ["Linked List"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
+}

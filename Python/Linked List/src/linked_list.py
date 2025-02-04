@@ -1,62 +1,73 @@
 class Node:
     def __init__(self, data):
-        self.data: any = data
-        self.next = None
+        self.__data: any = data
+        self.__next = None
 
     def get_data(self):
-        return self.data
+        return self.__data
 
     def set_data(self, data):
-        self.data = data
+        self.__data = data
 
     def get_next(self):
-        return self.next
+        return self.__next
 
     def set_next(self, node):
-        self.next = node
+        self.__next = node
 
 
-class PyLinkedList:
+class LinkedList:
     def __init__(self):
-        self.head: Node = None
-        self.tail: Node = None
-        self.size: int = 0
+        self.__head: Node = None
+        self.__tail: Node = None
+        self.__size: int = 0
 
     # Insert Items
     def insert_head(self, data):
         node = Node(data)
-        node.set_next(self.head)
-        self.size += 1
+        if self.__head:
+            node.set_next(self.__head)
+
+        self.__head = node
+        self.__size += 1
 
         return self
 
     def insert_tail(self, data):
         node = Node(data)
-        self.tail.set_next(node)
-        self.tail = node
-        self.size += 1
+        if self.__tail:
+            self.__tail.set_next(node)
+
+        self.__tail = node
+        self.__size += 1
 
         return self
 
     def insert_at(self, index: int, data):
+        if index > self.__size + 2:
+            raise IndexError("Index larger than list.")
+        if index == 0:
+            return self.insert_head(data)
+        if index == self.__size + 1:
+            return self.insert_tail(data)
         pass
 
     # Get Items
-    def get_first(self) -> Node:
-        return self.head
+    def get_head(self) -> Node:
+        return self.__head
 
-    def get_last(self) -> Node:
-        return self.tail
+    def get_tail(self) -> Node:
+        return self.__tail
 
     def get(self, index: int) -> Node:
         pass
 
     # Delete Items
     def remove_first(self):
-        next_node = self.head
-        self.head = next_node.get_next()
-        del next
-        self.size -= 1
+        next_node = self.__head
+        self.__head = next_node.get_next()
+        del next_node
+        self.__size -= 1
 
         return self
 
@@ -81,14 +92,23 @@ class PyLinkedList:
         pass
 
     # Other
+    @property
     def size(self) -> int:
-        return self.size
+        return self.__size
 
     def is_empty(self) -> bool:
-        return self.size > 0
+        return not self.__size > 0
 
     def clear(self) -> None:
-        pass
+        node = self.__head
+        while node:
+            print(self.__size)
+            temp = node
+            node = node.get_next()
+            del temp
+            self.__size -= 1
+
+        return self
 
     def iterator(self):
         pass
